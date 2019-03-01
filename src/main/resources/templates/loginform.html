@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="#" th:action="@{/processLogin}" th:object="${message}" method="post">
+    Please enter a Username to post message: <input type="text" th:field="*{postedBy}" />
+    <span th:if="${#fields.hasErrors('postedBy')}"
+          th:errors="*{postedBy}"></span><br />
+    <input type="submit" value="Enter Bullhorn." />
+</form>
+</body>
+</html>
