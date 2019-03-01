@@ -6,6 +6,7 @@
 </head>
 <body>
 <form action="#" th:action="@{/processLogin}" th:object="${message}" method="post">
+    <!--<input type="hidden" th:field="*{id}" />-->
     Please enter a Username to post message: <input type="text" th:field="*{postedBy}" />
     <span th:if="${#fields.hasErrors('postedBy')}"
           th:errors="*{postedBy}"></span><br />

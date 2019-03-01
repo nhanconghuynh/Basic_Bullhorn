@@ -16,63 +16,69 @@ public class HomeController {
     @Autowired
     MessagesRepository messagesRepository;
 
-/*   @RequestMapping("/")
+   @RequestMapping("/")
+   public String index(){
+       return "index";
+   }
+
+
+   @RequestMapping("/list")
    public String listMessages(Model model){
         model.addAttribute("messages", messagesRepository.findAll());
         return "list";
-    } */
+    }
 
     @RequestMapping("/login")
     public String loadLogin(Model model){
-        model.addAttribute("message", new Message());
+        model.addAttribute("message", new Message("title", "content", "date" ));
         return "loginform";
     }
 
+  /*  @RequestMapping("/add")
+    public String addMessage(Model model){
+//       Message message = new Message("init", "init", "init", "init");
+       model.addAttribute("message", new Message());
+        return "loginform";
+    }
+*/
 
-   @RequestMapping("/processLogin")
-    public String processLogin(@Valid @ModelAttribute("message") Message message, BindingResult result) {
-        if (result.hasErrors()) {
+   @PostMapping("/processLogin")
+    public String processLogin(@Valid @ModelAttribute("message") Message message, BindingResult result,
+                              Model model) {
+       if (result.hasErrors()) {
             return "loginform";
         }
-        return "confirmlogin";
-    }
-
-
- /*   @GetMapping("/postmessage")
-    public String courseForm(Model model){
-        model.addAttribute("message", new Message());
+        messagesRepository.save(message);
         return "messageform";
     }
 
-
-    @PostMapping("/process")
-    public String processForm(@Valid @ModelAttribute("message") Message message, BindingResult result) {
+    @PostMapping("/processMessage")
+    public String processMessage(@Valid @ModelAttribute("message") Message message, BindingResult result,
+                               Model model) {
         if (result.hasErrors()) {
             return "messageform";
         }
         messagesRepository.save(message);
         return "redirect:/";
     }
-
-
-/*
+ 
     @RequestMapping("/detail/{id}")
-    public String showCourse(@PathVariable("id") long id, Model model) {
-        model.addAttribute("course", courseRepository.findById(id));
+    public String showMessage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("message", messagesRepository.findById(id));
         return "show";
     }
 
     @RequestMapping("/update/{id}")
-    public String updateCourse(@PathVariable("id") long id, Model model){
-        model.addAttribute("course", courseRepository.findById(id));
-        return "courseform";
+    public String updateMessage(@PathVariable("id") long id, Model model){
+        model.addAttribute("message", messagesRepository.findById(id));
+        return "messageform";
     }
 
     @RequestMapping("delete/{id}")
-    public String delCourse(@PathVariable("id") long id){
-        courseRepository.deleteById(id);
+    public String delMessage(@PathVariable("id") long id){
+        messagesRepository.deleteById(id);
         return "redirect:/";
     }
 
-*/
+
 }

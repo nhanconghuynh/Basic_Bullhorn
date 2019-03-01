@@ -27,8 +27,17 @@ public class Message {
     private String postedDate;
 
     @NotNull
-    @Size(min = 3, max = 30)
+    @Size(min = 2, max = 30)
     private String postedBy;
+
+    public Message() {
+    }
+
+    public Message(@NotNull @Size(min = 3, max = 20) String title, @NotNull @Size(min = 3, max = 140) String content, @NotNull String postedDate) {
+        this.title = title;
+        this.content = content;
+        this.postedDate = postedDate;
+    }
 
     public long getId() {
         return id;

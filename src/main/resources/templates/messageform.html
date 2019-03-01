@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a message</title>
+</head>
+<body>
+<p th:inline="text">
+    Hello, <b> [[${message.postedBy}]]. </b>
+</p>
+<form action="#" th:action="@{/processMessage}" th:object="${message}" method="post">
+
+
+
+    Subject: <input type="text" th:field="*{title}" /><br />
+    <span th:if="${#fields.hasErrors('title')}"
+          th:errors="*{title}"></span><br />
+
+
+    Message: <textarea rows="3" th:field="*{content}" />
+    <span th:if="${#fields.hasErrors('content')}"
+          th:errors="*{content}"></span><br><br />
+
+    <input type="submit" value="Vent away." />
+</form>
+</body>
+</html>
